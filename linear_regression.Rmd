@@ -1,0 +1,371 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r}
+# set working directory & load libraries 
+
+setwd("/Users/ironman/Desktop/Internship/GRN")
+df<- readRDS('expr_tissue-median_gtex.rds')
+library(readr)
+library(tidyverse)
+df<- as.data.frame(df$data)
+target<-df['BBC3',]
+head(target)
+
+```
+
+```{r}
+# assign BBC3 and TP53 for univariate regression
+
+tp53<- df['TP53',]
+data <- rbind(target,tp53)
+data<- as.data.frame(t(data))
+head(data)
+```
+
+
+```{r}
+#regression for tp53
+tp53_regression <- lm(TP53 ~ BBC3, data = data)
+
+summary(tp53_regression)
+```
+
+```{r}
+#plot for TP53
+ggplot(aes(x= TP53, y= BBC3), data = data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+
+```
+
+
+```{r}
+#create a multivariate dataframe 
+foxo3 <- df["FOXO3",]
+sp1 <- df["SP1",]
+tp73 <- df["TP73",]
+rela <- df["RELA",]
+jun <- df["JUN",]
+e2f1<- df["E2F1",]
+ddit3 <- df["DDIT3",]
+ctcf <- df["CTCF",]
+tp53<- df['TP53',]
+smad4 <- df["SMAD4",]
+smar1 <- df["BANP",]
+ezh2 <- df["EZH2",]
+
+mult_data <- as.data.frame(t(rbind(target, foxo3, sp1, tp73, rela, jun, e2f1, ddit3, ctcf, tp53, smad4, smar1, ezh2)))
+head(mult_data)
+```
+
+```{r}
+#foxo3 regression 
+foxo3_regression <- lm(FOXO3 ~ BBC3, data = mult_data)
+summary(foxo3_regression)
+```
+
+
+```{r}
+#plot for foxo3
+ggplot(aes(x= FOXO3, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+
+```
+
+```{r}
+#sp1 regression 
+
+sp1_regression <- lm(SP1 ~ BBC3, data = mult_data)
+summary(sp1_regression)
+```
+
+```{r}
+#plot for SP1
+
+ggplot(aes(x= SP1, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+
+```
+
+```{r}
+#TP73 regression 
+
+tp73_regression <- lm(TP73 ~ BBC3, data = mult_data)
+summary(tp73_regression)
+```
+
+
+```{r}
+#plot for TP73
+
+ggplot(aes(x= TP73, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+```
+
+```{r}
+#rela regression 
+rela_regression <- lm(RELA ~ BBC3, data = mult_data)
+summary(rela_regression)
+```
+
+```{r}
+#plot for RELA 
+ggplot(aes(x= RELA, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+
+```
+
+```{r}
+# JUN regression 
+jun_regression <- lm(JUN ~ BBC3, data = mult_data)
+summary(jun_regression)
+```
+
+
+```{r}
+#plot for JUN 
+ggplot(aes(x= JUN, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+```
+
+```{r}
+#E2F1 regression 
+
+e2f1_regression <- lm(E2F1 ~ BBC3, data = mult_data)
+summary(e2f1_regression)
+```
+
+
+```{r}
+#plot for E2F1 
+
+ggplot(aes(x= E2F1, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+
+```
+```{r}
+#DDIT3 regression 
+
+ddit3_regression <- lm(DDIT3 ~ BBC3, data = mult_data)
+summary(ddit3_regression)
+```
+
+
+```{r}
+#plot for DDIT3 
+
+ggplot(aes(x= DDIT3, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+```
+
+
+```{r}
+# CTCF regression 
+ctcf_regression <- lm(CTCF ~ BBC3, data = mult_data)
+summary(ctcf_regression)
+```
+
+
+```{r}
+#plot for CTCF 
+ggplot(aes(x= CTCF, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+```
+
+
+```{r}
+#TP53 regression 
+tp53_regression <- lm(TP53 ~ BBC3, data = mult_data)
+summary(tp53_regression)
+```
+
+
+```{r}
+# plot for TP53 
+ggplot(aes(x= TP53, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+```
+
+
+```{r}
+#SMAD4 regression 
+
+smad4_regression <- lm(SMAD4 ~ BBC3, data = mult_data)
+summary(smad4_regression)
+```
+
+
+```{r}
+#SMAD4 plot 
+ggplot(aes(x= SMAD4, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+```
+
+
+```{r}
+#BANP regression 
+banp_regression <- lm(BANP ~ BBC3, data = mult_data)
+summary(banp_regression)
+```
+
+
+```{r}
+#plot for BANP 
+ggplot(aes(x= BANP, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+```
+
+
+```{r}
+#EZH2 regression 
+
+ezh2_regression <- lm(EZH2 ~ BBC3, data = mult_data)
+summary(ezh2_regression)
+```
+
+
+```{r}
+#EZH2 plot 
+
+ggplot(aes(x= EZH2, y= BBC3), data = mult_data)+geom_point() +geom_smooth(method = 'lm', se = FALSE)
+```
+
+
+```{r}
+# Lasso regression prep 
+
+library(caret)
+set.seed(15)
+#indexing for training and testing set 
+
+index <- createDataPartition(mult_data$BBC3, p = 0.7, list = FALSE, times = 1)
+train_df <- mult_data[index,]
+test_df<- mult_data[-index,]
+
+head(test_df)
+
+```
+
+
+```{r}
+#setting cross validation settings 
+ctrlspecs <- trainControl(method = "cv",
+                          number = 10,
+                          savePredictions = "all")
+```
+
+
+```{r}
+#setting lambda vector
+lambda_vectors <- 10^seq(5,-5, length = 200)
+set.seed(15)
+
+#Lasso regression set up 
+
+model1 <- train(BBC3~., 
+                data = mult_data,
+                preProcess = c("center", "scale"),
+                method = "glmnet",
+                tuneGrid = expand.grid(alpha = 1, lambda = lambda_vectors),
+                trControl= ctrlspecs,
+                na.action = na.omit)
+# best result of lambda from lasso regression 
+
+model1$bestTune
+
+```
+
+
+```{r}
+#coeffecients from lasso regression 
+round(coef(model1$finalModel,model1$bestTune$lambda), 3)
+
+```
+
+
+```{r}
+#plotting the RMSE performance by changing lambda 
+
+plot(log(model1$results$lambda),
+     model1$results$RMSE,
+     xlab = "log(lambda)",
+     ylab = "RMSE",
+     xlim = c(-5, 2))
+```
+
+
+```{r}
+# log value of best lambda 
+log(model1$bestTune$lambda)
+
+```
+
+
+```{r}
+# compare the importance of each variable 
+
+varImp(model1)
+library(ggplot2)
+ggplot(varImp(model1))
+
+```
+
+
+```{r}
+# test the predictability of model1 
+
+predictions1 <- predict(model1, newdata = test_df)
+mod1_perf <- data.frame(RMSE(predictions1, test_df$BBC3),R2(predictions1, test_df$BBC3))
+mod1_perf
+
+```
+
+
+```{r}
+# set up multivariate linear regression 
+
+set.seed(15)
+
+model2 <- train(BBC3 ~.,
+                data = train_df,
+                method = "lm",
+                trControl = ctrlspecs,
+                na.action = na.omit)
+
+summary(model2)
+
+
+```
+
+
+```{r}
+#compare linear regression vs lasso regression performace 
+
+model_list <- list(model1, model2)
+resamp<- resamples(model_list)
+summary(resamp)
+
+```
+
+
+```{r}
+# compare the model using t-test 
+compare_models(model1, model2, metric = "RMSE")
+compare_models(model1, model2, metric = "Rsquared")
+
+```
+
+
+```{r}
+# performance of linear regression on test set 
+predictions2 <- predict(model2, newdata = test_df)
+mod2_perf <- data.frame(RMSE(predictions2, test_df$BBC3),R2(predictions2, test_df$BBC3))
+
+```
+
+
+```{r}
+#comparing the performance of lass vs linear regression in testing set 
+comp <- matrix(c(mod1_perf$RMSE, mod1_perf$R2,
+                 mod2_perf$RMSE, mod2_perf$R2),
+               ncol=2, byrow= TRUE)
+colnames(comp) <- c("RMSE", "R-square")
+rownames(comp) <- c("LASSO Regression", "OLS MLR")
+comp <- as.table(comp)
+round(comp,3)
+
+```
+
+
+
